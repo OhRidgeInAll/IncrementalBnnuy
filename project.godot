@@ -11,8 +11,20 @@ config_version=5
 [application]
 
 config/name="IncrementalBnnuy"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Events="*res://scripts/autoload/events.gd"
+Game="*res://scripts/autoload/game.gd"
+SaveSystem="*res://scripts/autoload/save_system.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
@@ -24,6 +36,5 @@ project/assembly_name="IncrementalBnnuy"
 
 [rendering]
 
-rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
