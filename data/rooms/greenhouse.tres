@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RoomDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/defs/room_def.gd" id="1_room"]
+
+[resource]
+script = ExtResource("1_room")
+id = &"greenhouse"
+display_name = "Greenhouse"
+description = "Berries under glass, tended by nobody. Grows on its own, day and night."
+requires_lifetime = 900.0
+unlock_cost = 1200.0
+cost_resource_id = &"berry"
+extra_max_workers = 0.0
+extra_offline_hours = 0.0
+berries_per_second = 4.0

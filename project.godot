@@ -12,7 +12,7 @@ config_version=5
 
 config/name="IncrementalBnnuy"
 run/main_scene="res://scenes/main.tscn"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -25,10 +25,6 @@ SaveSystem="*res://scripts/autoload/save_system.gd"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-
-[dotnet]
-
-project/assembly_name="IncrementalBnnuy"
 
 [physics]
 

@@ -14,3 +14,11 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Export output
+build/
+
+# Export presets can contain credentials for some platforms; this project has
+# none, so the Web preset is tracked deliberately.
+export_credentials.cfg
+/tools

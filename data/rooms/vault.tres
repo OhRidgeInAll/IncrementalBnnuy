@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RoomDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/defs/room_def.gd" id="1_room"]
+
+[resource]
+script = ExtResource("1_room")
+id = &"vault"
+display_name = "Vault"
+description = "A cold, dry store. Berries keep growing for far longer while you are away."
+requires_lifetime = 400.0
+unlock_cost = 500.0
+cost_resource_id = &"berry"
+extra_max_workers = 0.0
+extra_offline_hours = 8.0
+berries_per_second = 0.0

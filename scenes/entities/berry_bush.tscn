@@ -1,53 +1,18 @@
-[gd_scene format=3 uid="uid://c8vnxo5le3y1l"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" uid="uid://jf7yfijyyjfw" path="res://scripts/entities/site.gd" id="1_site"]
+[ext_resource type="Script" path="res://scripts/entities/site.gd" id="1_site"]
 [ext_resource type="Resource" path="res://data/sites/berry_bush.tres" id="2_def"]
-[ext_resource type="Texture2D" uid="uid://ca5gm55dt7iu6" path="res://assets/sprites/Bush.png" id="3_tex"]
-[ext_resource type="Script" uid="uid://bcv34w2fqatv8" path="res://scripts/ui/site_widget.gd" id="4_widget"]
-[ext_resource type="Script" uid="uid://xc3kqkd1hq3b" path="res://scripts/entities/site_bunnies.gd" id="5_bunnies"]
-[ext_resource type="PackedScene" path="res://scenes/entities/bunny.tscn" id="6_bunny"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Bush.png" id="3_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bush"]
 radius = 58.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_w"]
-font_size = 15
-outline_size = 4
-outline_color = Color(0.1, 0.13, 0.08, 1)
-
-[node name="BerryBush" type="Area2D" unique_id=1223800777]
+[node name="BerryBush" type="Area2D"]
 script = ExtResource("1_site")
 def = ExtResource("2_def")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=1568301766]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_tex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1779144041]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bush")
-
-[node name="Bunnies" type="Node2D" parent="." unique_id=188860550]
-script = ExtResource("5_bunnies")
-bunny_scene = ExtResource("6_bunny")
-
-[node name="Widget" type="VBoxContainer" parent="." unique_id=1612920471]
-offset_left = -70.0
-offset_top = 132.0
-offset_right = 70.0
-offset_bottom = 194.0
-mouse_filter = 2
-theme_override_constants/separation = 2
-alignment = 1
-script = ExtResource("4_widget")
-
-[node name="WorkersLabel" type="Label" parent="Widget" unique_id=1002241708]
-unique_name_in_owner = true
-layout_mode = 2
-text = "0 / 5 bunnies"
-label_settings = SubResource("LabelSettings_w")
-horizontal_alignment = 1
-
-[node name="HireButton" type="Button" parent="Widget" unique_id=1790879370]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Hire"

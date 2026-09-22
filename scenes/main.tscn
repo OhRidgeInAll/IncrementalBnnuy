@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/meadow.tscn" id="1_meadow"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="2_hud"]
+[ext_resource type="Script" path="res://scripts/screens/screens.gd" id="1_screens"]
+[ext_resource type="PackedScene" path="res://scenes/meadow.tscn" id="2_meadow"]
+[ext_resource type="PackedScene" path="res://scenes/warren_interior.tscn" id="3_warren"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="4_hud"]
 
 [node name="Main" type="Node"]
 
-[node name="Meadow" parent="." instance=ExtResource("1_meadow")]
+[node name="Screens" type="Node" parent="."]
+script = ExtResource("1_screens")
 
-[node name="HUD" parent="." instance=ExtResource("2_hud")]
+[node name="Meadow" parent="Screens" instance=ExtResource("2_meadow")]
+unique_name_in_owner = true
+
+[node name="WarrenInterior" parent="Screens" instance=ExtResource("3_warren")]
+unique_name_in_owner = true
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]

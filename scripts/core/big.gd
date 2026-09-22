@@ -73,20 +73,27 @@ static func coerce(v: Variant) -> BigNumber:
 	return zero()
 
 
-## Defensive copy -- BigNumber aliases on assignment.
+## Defensive copy, and the chokepoint that keeps every value normalized.
+##
+## Addon arithmetic can return un-normalized results: `0 + 1e3` comes back as
+## mantissa 10.0, exponent 2. to_float() reports 1000, so it looks fine until
+## something copies it -- the setter folds 10.0 to 1.0 without touching the
+## exponent and the value silently becomes 100. Normalizing here stops any such
+## value escaping Big, so a balance cannot lose a decade just by being read.
 static func copy(n: BigNumber) -> BigNumber:
 	if n == null:
 		return zero()
-	return _raw(n.mantissa, n.exponent)
+	return from_parts(n.mantissa, n.exponent)
 
 
 static func is_zero(n: BigNumber) -> bool:
 	return n == null or n.mantissa <= 0.0
 
 
-## a + b, without mutating either operand.
+## a + b, without mutating either operand. Every result is routed through
+## `copy()` so it comes back normalized -- see the note there.
 static func add(a: BigNumber, b: Variant) -> BigNumber:
-	return a.plus(coerce(b))
+	return copy(a.plus(coerce(b)))
 
 
 ## a - b, clamped at zero (raw minus gives abs value on underflow).
@@ -94,11 +101,11 @@ static func sub(a: BigNumber, b: Variant) -> BigNumber:
 	var rhs := coerce(b)
 	if not gte(a, rhs):
 		return zero()
-	return a.minus(rhs)
+	return copy(a.minus(rhs))
 
 
 static func mul(a: BigNumber, b: Variant) -> BigNumber:
-	return a.multiply(coerce(b))
+	return copy(a.multiply(coerce(b)))
 
 
 static func div(a: BigNumber, b: Variant) -> BigNumber:
@@ -106,11 +113,11 @@ static func div(a: BigNumber, b: Variant) -> BigNumber:
 	if is_zero(rhs):
 		push_error("Big.div: division by zero")
 		return zero()
-	return a.divide(rhs)
+	return copy(a.divide(rhs))
 
 
 static func pow_big(a: BigNumber, exp: float) -> BigNumber:
-	return a.power(exp)
+	return copy(a.power(exp))
 
 
 static func gte(a: BigNumber, b: Variant) -> bool:
@@ -157,10 +164,12 @@ static func _space_suffix(text: String) -> String:
 
 
 ## Serializes without going through float, so values beyond 1e308 survive.
+## Normalizes first -- saving a raw mantissa of 10.0 would reload as a tenth.
 static func to_save(n: BigNumber) -> Dictionary:
 	if n == null:
 		return {"m": 0.0, "e": 0}
-	return {"m": n.mantissa, "e": n.exponent}
+	var c := copy(n)
+	return {"m": c.mantissa, "e": c.exponent}
 
 
 static func from_save(d: Variant) -> BigNumber:

@@ -1,21 +1,22 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/Bunny.png" id="1_bun"]
+[ext_resource type="Script" path="res://scripts/entities/forager.gd" id="1_forager"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Bunny.png" id="2_bun"]
 
 [sub_resource type="AtlasTexture" id="A0"]
-atlas = ExtResource("1_bun")
+atlas = ExtResource("2_bun")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="A1"]
-atlas = ExtResource("1_bun")
+atlas = ExtResource("2_bun")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="A2"]
-atlas = ExtResource("1_bun")
+atlas = ExtResource("2_bun")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="A3"]
-atlas = ExtResource("1_bun")
+atlas = ExtResource("2_bun")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="Frames"]
@@ -38,6 +39,11 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Bunny" type="AnimatedSprite2D"]
+[node name="Forager" type="Node2D"]
+z_index = 5
+script = ExtResource("1_forager")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("Frames")
 autoplay = "default"
